@@ -1,0 +1,66 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Ruta completa desde htdocs hasta el interior de la carpeta rest
+RewriteBase /P3-PH2/rest/
+
+# Con el valor 307 en las reglas de abajo se redirigen todas las
+# peticiones, tanto las peticiones GET como las POST
+
+##################################################
+### REGLAS PARA JUEGO (EMPEZAR y DISPAROS)
+##################################################
+# Regla que redirige a rest/post/juego.php
+# Con esta línea de abajo, sólo acepta peticiones POST
+RewriteCond %{THE_REQUEST} ^POST
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^juego/(.*)$ post/juego.php?prm=$1&%{QUERY_STRING} [R=307,L]
+
+##################################################
+### REGLAS PARA BARCOS
+##################################################
+# Regla que redirige a rest/get/barco.php (devuelve el array de barcos de la máquina)
+# Con esta línea de abajo, sólo acepta peticiones GET
+RewriteCond %{THE_REQUEST} ^GET
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^barco/(.*)$ get/barco.php?prm=$1&%{QUERY_STRING} [R=307,L]
+
+##################################################
+### REGLAS PARA CLASIFICACIÓN
+##################################################
+# Regla que redirige a rest/get/clasificacion.php
+# Con esta línea de abajo, sólo acepta peticiones GET
+RewriteCond %{THE_REQUEST} ^GET
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^clasificacion/(.*)$ get/clasificacion.php?prm=$1&%{QUERY_STRING} [R=307,L]
+
+##################################################
+### REGLAS PARA LOGIN
+##################################################
+# Regla que redirige a rest/get/login.php (pregunta disponibilidad de login)
+# Con esta línea de abajo, sólo acepta peticiones GET
+RewriteCond %{THE_REQUEST} ^GET
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^login/(.*)$ get/login.php?prm=$1&%{QUERY_STRING} [R=307,L]
+
+# Regla que redirige a rest/post/login.php (hacer login)
+# Con esta línea de abajo, sólo acepta peticiones POST
+RewriteCond %{THE_REQUEST} ^POST
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^login/(.*)$ post/login.php?prm=$1&%{QUERY_STRING} [R=307,L]
+
+##################################################
+### REGLAS PARA REGISTRO / MODIFICAR DATOS DE USUARIO
+##################################################
+# Regla que redirige a rest/post/usuario.php
+# Con esta línea de abajo, sólo acepta peticiones POST
+RewriteCond %{THE_REQUEST} ^POST
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^usuario/(.*)$ post/usuario.php?prm=$1&%{QUERY_STRING} [R=307,L]
+

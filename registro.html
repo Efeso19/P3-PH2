@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Registro</title>
+		<link rel="stylesheet" type="text/css" href="CSS/main.css" />
+	
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	</head>
+	<body onload="comprobar();">
+		<div id="transparencia"></div>
+		<script type="text/javascript">
+
+
+		</script>
+		<header>
+			
+			<img src="Imagenes/logotipo.png" height="40" width="40" alt="logo de la web"> <h1>Travell</h1>
+		</header>
+				<nav id="navegacion">
+			<!--<input type="checkbox" id="menu-trigger">
+			<ul>
+				<li><label for="menu-trigger"><span>&equiv;</span></label></li>
+				<li><a href="index.html"><i class="fa fa-home"></i> <span>Inicio</span></a></li> 
+				<li><a href="login.html"><i class="fa fa-sign-in"></i> <span>Login</span></a></li> 
+				<li><a href="registro.html"><i class="fa fa-plus"></i> <span>Registrarse</span></a></li> 
+				<li><a href=""><i class="fa fa-user"></i> <span>Perfil</span></a></li> 
+				<li><a href=""><i class="fa fa-sign-out"></i> <span>Logout</span></a></li> 
+				<li><a href="buscar_viajes.html"><i class="fa fa-search"></i> <span>Buscar viajes</span></a></li> 
+				<li><a href="crear_viaje.html"><i class="fa fa-plane"></i> <span>Crear viaje</span></a></li>
+			</ul>
+			-->
+	
+		</nav>
+		<script type="text/javascript" src="js/web.js"></script>
+		<script type="text/javascript" src="js/registro.js" async ></script>
+
+
+		<section class="espacio_to_nav">
+			<h2>Registrarse</h2>
+			<form name="regisform" id="regisform" onsubmit="return registrarse(this);" >
+				<p id="loginmsg"></p>
+				<label for="usu">Nombre de usuario:</label>
+				<br>
+				<input type="text" id="usu" name="login" placeholder="Usuario" required autofocus pattern="[a-zA-Z0-9]{5,20}" maxlength="20" >
+				<div id='msglogin'><br>No est&aacute; disponible<br></div>
+				<div id='logindisponible'><br>Est&aacute; disponible<br></div>
+				<br>
+				<!--<p id="regisok">Usted se ha registrado correctamente. Redirigiendo.<br><input type='button' value='Cerrar' onclick='ToLogin();'/><br></p>
+				<p id="modok">Se han cambiado los datos correctamente. Redirigiendo.<br><input type='button' value='Cerrar' onclick='ToPerfil();'/><br></p>-->
+				<!-- En el usuario he de preguntar cual es el minimo de caracteres -->
+				
+				<label for="pwd">Contrase&ntilde;a:</label>
+				<br>
+				<input type="password" id="pwd" name="pwd" placeholder="*******" required pattern="[a-zA-Z][a-zA-Z0-9_-]{5,20}" maxlength="20">
+				<div id='msgpwd'><br>Las contrase&ntilde;as no coindicen<br></div>
+				<!-- En el password he de preguntar cual es el minimo de caracteres -->
+				<br>
+				<label for="pwd2">Repetir contrase&ntilde;a:</label>
+				<br>
+				<input type="password" id="pwd2" name="pwd2" placeholder="*******" required pattern="[a-zA-Z][a-zA-Z0-9_-]{5,20}" maxlength="20">
+				<!-- En el password he de preguntar cual es el minimo de caracteres -->
+				<!--  -->
+				<br>
+				<label for="nombre">Nombre completo:</label>
+				<br>
+				<input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required>
+				<br>
+				<label for="email">Email:</label>
+				<br>
+				<input type="email" id="email" name="email" placeholder="Email" required>
+				<br>
+				<label for="foto">Foto:</label>
+				<br>
+				<input type="file" id="foto" name="foto" onchange="mostrarFotoM()">
+				<div id='fotomsg'><br>El archivo subido pesa mas de 2MB, por favor sube otro archivo<br></div>
+				<div id="avatar">
+				<img src="#" alt="foto de perfil" id="mostrarFoto" width="100" height="100">
+				<br>
+				<input type="button" id="eliminar" name="eliminar" onclick="eliminarFoto()" value="Eliminar foto">
+				
+				</div>
+				<input type="submit" id ="regristrarsebutton" value="Enviar" >
+			</form>
+		</section>
+		<footer>
+			<time datetime="2016">2016</time> &copy; <a href="">Contacto</a> | <a href="acerca.html">Sobre nosotros</a>
+		</footer>
+		
+	</body>
+
+</html>
+
+
+

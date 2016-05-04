@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" type="text/css" href="CSS/main.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<title>Hundir la flota</title>
+	</head>
+	<body>
+		<div id="transparencia"></div>
+		<script type="text/javascript">
+			if(!sessionStorage.getItem('logged')){
+				location.replace("inicio.html");
+			}	
+		</script>
+		<header>
+			<img src="Imagenes/logotipo.png" height="40" width="40" alt="logo de la web"> <h1>Travell</h1>
+		</header>
+		<nav id="navegacion">
+		</nav>
+		<script type="text/javascript" src="js/web.js"></script>
+		<script type="text/javascript" src="js/canvas.js" defer></script>
+		<section class="espacio_to_nav">
+
+				<h2>Posicionar tus barcos</h2>
+				<div>
+					<canvas id="posicionarBarcos" width="308" height="308">
+						
+					</canvas>
+
+				</div>
+
+
+
+		</section>
+
+
+
+
+
+
+
+		<footer>
+			<time datetime="2016">2016</time> &copy; <a href="">Contacto</a> | <a href="acerca.html">Sobre nosotros</a>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Login</title>
+		<link rel="stylesheet" type="text/css" href="CSS/main.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	</head>
+	<body>
+	<div id="transparencia"></div>
+		<script type="text/javascript">
+			if(sessionStorage.getItem('logged')){
+				location.replace("index.html");
+			}	
+		</script>
+		<script type="text/javascript" src="js/login.js" async defer></script>
+		<header>
+			
+			<img src="Imagenes/logotipo.png" height="40" width="40" alt="logo de la web"> <h1>Travell</h1>
+		</header>
+				<nav id="navegacion">
+			<!--<input type="checkbox" id="menu-trigger">
+			<ul>
+				<li><label for="menu-trigger"><span>&equiv;</span></label></li>
+				<li><a href="index.html"><i class="fa fa-home"></i> <span>Inicio</span></a></li> 
+				<li><a href="login.html"><i class="fa fa-sign-in"></i> <span>Login</span></a></li> 
+				<li><a href="registro.html"><i class="fa fa-plus"></i> <span>Registrarse</span></a></li> 
+				<li><a href=""><i class="fa fa-user"></i> <span>Perfil</span></a></li> 
+				<li><a href=""><i class="fa fa-sign-out"></i> <span>Logout</span></a></li> 
+				<li><a href="buscar_viajes.html"><i class="fa fa-search"></i> <span>Buscar viajes</span></a></li> 
+				<li><a href="crear_viaje.html"><i class="fa fa-plane"></i> <span>Crear viaje</span></a></li>
+			</ul>
+			-->
+		</nav>
+		<script type="text/javascript" src="js/web.js"></script>
+		
+		<section class="espacio_to_nav">
+			<h2>Login</h2>
+			<form name="formlogin" id="formlogin" onsubmit="return envio(this)">
+				<p id="loginmsg"></p>
+				<label for="login">Usuario</label>			
+				<input type="text" id="login" name="login" placeholder="Usuario" required autofocus pattern="[a-zA-Z][a-zA-Z0-9]{0,15}">
+				<br>
+				<label for="pwd">Contrase&ntilde;a</label>
+				<input type="password" id="pwd" name="pwd" placeholder="*******" required>
+				
+				<br>
+				<input type="submit" id ="loguearse" value="Iniciar sesión">
+				<br>
+				<a href="registro.html">Registrarse</a> 
+				<a href="">¿Olvid&oacute; su contrase&ntilde;a?</a>	
+			</form>
+			
+
+		</section>
+		
+			
+	
+
+
+
+
+
+
+		
+		<footer>
+			<time datetime="2016">2016</time> &copy; <a href="">Contacto</a> | <a href="acerca.html">Sobre nosotros</a>
+		</footer>
+		
+	</body>
+
+</html>
