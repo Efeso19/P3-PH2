@@ -1,0 +1,14 @@
+*{
+	box-sizing: border-box;
+}
+
+section{
+
+	display: inline-block;
+	float: left;
+	width: 45%;
+	min-height: 10em;
+	border: 0.1em solid #234;
+	padding: .5em;
+	margin: .5em;
+}

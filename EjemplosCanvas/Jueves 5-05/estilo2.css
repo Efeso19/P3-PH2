@@ -1,0 +1,16 @@
+svg{
+	border:.1em solid #234;
+}
+
+.r01{
+	fill:#00a;
+	stroke:#a00;
+	stroke-width:3px;
+}
+
+[data-btn-down]{
+	stroke:#00a;
+	fill:#a00;
+}
+
+

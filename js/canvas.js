@@ -1,20 +1,20 @@
 window.onload = prepararCanvas();
 
 
-
-
 function prepararCanvas(){
 	var cv = document.getElementById("posicionarBarcos");
-
-	dibujarDivisiones();
+	var cv2 = document.getElementById("arrastrar");
+	dibujarDivisiones("posicionarBarcos");
+	dibujarDivisiones("arrastrar");
+	barcosParaArrastrar("arrastrar");
 	escribirLabels()
 	
 
 
 
 
-	function dibujarDivisiones(){
-		var cv = document.getElementById("posicionarBarcos"),
+	function dibujarDivisiones(nombreCanvas){
+		var cv = document.getElementById(nombreCanvas),
 				ctx = cv.getContext('2d');
 				tamanyo = cv.width/11;
 				cv.width = cv.width;
@@ -28,11 +28,7 @@ function prepararCanvas(){
 			//horizontal
 			ctx.moveTo(0, tamanyo * (i+1));
 			ctx.lineTo(cv.width, tamanyo * (i+1));
-
-
-
 		}
-
 		ctx.stroke();
 
 
@@ -66,7 +62,22 @@ function prepararCanvas(){
 		for(var i = 0; i<11; i++){
 			ctx.fillText(i+1, 10+((i+1)*27.5), 20);
 		}
+		//para crear el cuadrado
+		ctx.strokeRect(28,28, 279, 279);
 
 	}
+
+	function barcosParaArrastrar(nombreCanvas){
+		var barcos = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1];
+		var cv = document.getElementById(nombreCanvas);
+		var ctx = cv.getContext('2d'); 
+
+		ctx.strokeRect(28, 28, );
+
+
+
+	}
+
+
 
 }

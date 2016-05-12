@@ -1,0 +1,28 @@
+.r01{
+
+	fill: #00a;
+	stroke: #a00;
+	stroke-width: 3;
+
+}
+
+svg{
+	border: .1em solid #234;
+
+
+}
+
+.c01{
+		fill:#FED101;
+	stroke:#234;
+	stroke-width: 3px;
+	cursor:pointer;
+}
+
+.r02{
+
+	fill: red;
+	stroke: blue;
+	stroke-width: 3;
+
+}
