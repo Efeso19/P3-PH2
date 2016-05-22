@@ -55,18 +55,16 @@ border-style: solid;
 #loginmsg, #loginok, #errorEnCrear, #viajeCreado{
 	display: none;
 	background-color: white;
-   position: fixed;
-    left: 100px;
-    top: 150px;
+   /*position: fixed;
+    /*left: 100px;
+    top: 150px;*/
 	padding: 50px;
 	width: 210px;
 	z-index: 8;
-	margin-right: 15px;
   animation-duration: 3s;
   animation-name: slidein;
   animation-iteration-count: infinite;
   position: absolute;
-	top: 170px;
 
 			-webkit-animation: fadein .5s; /* Safari, Chrome and Opera > 12.1 */
 		-moz-animation: fadein .5s; /* Firefox < 16 */
@@ -636,7 +634,7 @@ input:hover{
 	z-index: 7;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(255, 255, 255, 0.2);
+	background-color: rgba(255, 255, 255, 0.7);
 	display: none;
 }
 
@@ -677,4 +675,43 @@ input:hover{
 
 th{
 	padding: 10px;
+}
+
+#transparencia > article{
+
+	
+	background-color: rgb(255, 240, 201);
+	margin-top: 150px;
+	width: 340px;
+	/*margin-left: 40%;*/
+
+}
+
+
+@media (min-width: 475px){
+
+	#transparencia > article{
+
+		margin-left: 25%;
+
+	}
+
+
+	
+}
+
+@media (min-width: 1000px){
+
+	#transparencia > article{
+
+		margin-left: 40%;
+
+	}
+
+}
+
+#paraLogin, #paraRegistro{
+
+	display: none;
+
 }

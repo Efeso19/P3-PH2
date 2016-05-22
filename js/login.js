@@ -17,7 +17,7 @@ function envio(form){
 	var url="rest/login/";
 	
 
-
+	//alert(document.getElementById("login").value+" "+document.getElementById("pwd").value);
 	objajax.onreadystatechange = procesarCambio;
 	objajax.open("POST", url, true);
 
@@ -29,6 +29,7 @@ function envio(form){
 		if(objajax.readyState == 4){
 			if(objajax.status == 200){
 				var res = JSON.parse(objajax.responseText);				
+				console.log("Imprimo el objeto del login");
 				console.log(res);
 				sessionStorage.setItem('logged', 'true');	//SE ESTABLECEN TODOS PARES
 				sessionStorage.setItem('clave', res.CLAVE);
@@ -46,11 +47,8 @@ function envio(form){
 				document.getElementById("transparencia").style.display="initial";
 				document.getElementById("loginmsg").innerHTML="Bienvenido "+res.LOGIN+". Tu última conexión fue el "+parts2[0]+"/"+parts2[1]+"/"+parts2[2]+" a las "+parts3[0]+":"+parts3[1]+"<br><input type='button' value='Cerrar' onclick='ToInicio();'/>";
 				document.getElementById("loginmsg").style.display = "initial";
-				document.getElementById("loguearse").disabled=true;
-				//alert("jummm");
 				//location.replace("index.html");
 			}else if(objajax.status == 401){
-				bloquear();
 				document.getElementById("transparencia").style.display="initial";
 				document.getElementById("loginmsg").innerHTML="Los datos no son corectos.<button onclick='ocultar(form);'>Cerrar</button><br>";
 				document.getElementById("loginmsg").style.display="initial";
@@ -68,25 +66,20 @@ function envio(form){
 }
 
 function ocultar(form){
-	document.getElementById("transparencia").style.display="none";
+	
+	//document.getElementById("transparencia").style.display="none";
 	document.getElementById("loginmsg").style.display="none";
-	document.getElementById("login").disabled=false;
+
+
+
 	form.reset();
 	document.getElementById("login").focus();
 	return false;
-}
-
-function bloquear(){
-	var aux=true;
-	//document.getElementById("pwd").disabled=aux;//no se deja actualizar el valor, a veces me pasa
-	document.getElementById("login").disabled=true;
-	//document.getElementById("regristrar").disabled=true;
-
 
 }
 
 function ToInicio(){
-
+	//redirecciono al index para que cargue el "Hola, usuario_nombre"
 	window.location.replace("index.html");
 
 }

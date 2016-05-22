@@ -3,7 +3,7 @@
 function prepararDnD(){
 	//Parte del drag
 	var ps = document.querySelectorAll('#origen>p');
-	
+	alert(ps.length);
 	for(var i=0; i<ps.length; i++){
 		ps[i].setAttribute('draggable', 'true');
 		ps[i].ondragstart = function(e){

@@ -6,7 +6,7 @@ function clasificacion(){
 	var xmlhttp = new XMLHttpRequest();		
 
 	xmlhttp.onreadystatechange = procesarCambio;
-	xmlhttp.open('GET', 'rest/clasificacion/?u=10', true);	
+	xmlhttp.open('GET', 'rest/clasificacion/?c=10', true);	
 	xmlhttp.send();		
 
 	function procesarCambio(){
@@ -20,15 +20,19 @@ function clasificacion(){
 			200: "OK"
 			404: Page not found
 		*/	
+		
 		if(xmlhttp.readyState == 4){
 			if(xmlhttp.status == 200){
 				var res = JSON.parse(xmlhttp.responseText);
+				//var res = eval('('+xmlhttp.responseText+')');
+				console.log("Imprimo los objetos de la clasificación");
 				console.log(res);
 				/*Los atributos de la respuesta que forman parte del array
 					GANADAS
 					JUGADAS
 					LOGIN
 				*/
+
 				var i=0;
 				mostrar="<table><tr><th>Usuario</th><th>Ganadas</th><th>Jugadas</th><th>Ratio de victorias</th></tr>";
 				for(i=0; i<res.FILAS.length;i++){
@@ -37,15 +41,16 @@ function clasificacion(){
 					//ratio=ratio*100;
 					mostrar+="<tr> <td>"+res.FILAS[i].LOGIN+"</td> <td>"+res.FILAS[i].GANADAS+"</td> <td>"+res.FILAS[i].JUGADAS+"</td> <td>"+ratio+"%</td> </tr>";
 				}
+
 				mostrar+="</table>"
 				document.getElementById("centrarultimos5viajes").innerHTML=mostrar;
 			}
 			else{
-
-				//alert("Hubo un problema con los datos devueltos");
-				
+				//alert("Hubo un problema con los datos devueltos");		
 			}
+
 		}
+		
 	}
 	
 	return false;

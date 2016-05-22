@@ -59,7 +59,7 @@ function prepararCanvas(){
 		cv.removeAttribute('data-btndown');
 		cv.classList.toggle('pintando');
 	}
-
+	/*
 	cv.onmouseout = function(e){
 		console.log("MouseOut");
 		if(cv.getAttribute('data-btndown')){
@@ -67,7 +67,7 @@ function prepararCanvas(){
 			cv.classList.toggle('pintando');
 		}
 		
-	}
+	}*/
 
 	cv.onmousemove = function(e){
 		//para capturar el movimiento del raton

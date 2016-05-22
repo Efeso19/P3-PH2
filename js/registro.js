@@ -26,27 +26,24 @@ function crearObjAjax(){
 
 function registrarse(frm){
 	var fd = new FormData();
-
+	alert("oderrrr");
 		fd = new FormData(frm);
 		var l = document.getElementById('usu').value;
 		var n = document.getElementById('nombre').value;
-		var f =	document.getElementById('foto').files[0];
 		var e = document.getElementById('email').value;
 		var p = document.getElementById('pwd').value;
 	
-
 	var xmlhttp = crearObjAjax();
 	var url="rest/usuario/";
 
 	xmlhttp.onload = function(){
-		
+		alert(xmlhttp	.readyState+" "+xmlhttp.status);
 		if(xmlhttp.readyState == 4){
 			if(xmlhttp.status == 200 ){
 				//var usuario = validarUsuario(document.getElementById("usu").value);
 				var res = JSON.parse(xmlhttp.responseText);
 				console.log(xmlhttp.responseText);
 				//machaacar la F
-				f=res.foto;
 
 				/*
 				sessionStorage.setItem('logged', 'true');	//SE ESTABLECEN TODOS PARES
@@ -55,16 +52,14 @@ function registrarse(frm){
 				sessionStorage.setItem('logged', 'true');
 				sessionStorage.setItem('login', l);	
 				sessionStorage.setItem('nombre', n);	
-				sessionStorage.setItem('foto', f);
 				sessionStorage.setItem('email', e);
 				sessionStorage.setItem('pwd', p);
-				console.log(document.getElementById('foto').files[0]);
 				document.getElementById("usu").disabled=true;
 				document.getElementById("pwd").disabled=true;
 				document.getElementById("pwd2").disabled=true;
 				document.getElementById("nombre").disabled=true;
 				document.getElementById("email").disabled=true;
-				document.getElementById("foto").disabled=true;
+				alert("aqui llego");
 				document.getElementById("eliminar").disabled=true;
 				document.getElementById("regristrarsebutton").disabled=true;
 				document.getElementById("transparencia").style.display="initial";
@@ -74,8 +69,11 @@ function registrarse(frm){
 
 
 				document.getElementById("msgpwd").style.display="none";
-				
-				document.getElementById("loginmsg").innerHTML="Usted se ha registrado correctamente. Redirigiendo al juego.<br><input type='button' value='Cerrar' onclick='ToGame();'/><br>";
+								document.getElementById("transparencia").style.display="initial";
+				//document.getElementById("loginmsg").innerHTML="Bienvenido "+res.LOGIN+". Tu última conexión fue el "+parts2[0]+"/"+parts2[1]+"/"+parts2[2]+" a las "+parts3[0]+":"+parts3[1]+"<br><input type='button' value='Cerrar' onclick='ToInicio();'/>";
+				document.getElementById("loginmsg").innerHTML = "Registrado";
+				document.getElementById("loginmsg").style.display = "initial";
+				//document.getElementById("loginmsg").innerHTML="Usted se ha registrado correctamente. Redirigiendo al juego.<br><input type='button' value='Cerrar' onclick='ToGame();'/><br>";
 				//document.getElementById("regisok").style.display="block";
 
 				
@@ -93,6 +91,7 @@ function registrarse(frm){
 	xmlhttp.open("POST", url, true);
 	var resul = 0;
 	
+	/*
 	if(document.getElementById("foto")!=null){
 		//compruebo la foto
 		inp = document.getElementById("foto");
@@ -109,7 +108,7 @@ function registrarse(frm){
 		document.getElementById("foto").value="";
 		document.getElementById("fotomsg").style.display="initial";
 	}
-
+	*/
 	return false;
 }
 /*
