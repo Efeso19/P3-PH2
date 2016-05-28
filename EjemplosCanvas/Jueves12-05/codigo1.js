@@ -64,7 +64,8 @@ function prepararDnD(){
 	//CANVAS 02
 	
 	cv02.ondragover = function(e){
-		
+		ctx01 = cv.getContext('2d');
+		console.log(ctx01.getImageData(0,0,cv.width,cv.height));
 		e.preventDefault();
 	}
 	

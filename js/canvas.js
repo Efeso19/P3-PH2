@@ -15,15 +15,16 @@ var gameBoard = [
 				[0,0,0,0,0,0,0,0,0,0,0],
 				[0,0,0,0,0,0,0,0,0,0,0]
 				];
+var barcosPuestos = [false, false, false, false, false, false, false, false, false, false];
 var comprobado = false; //para saber si una posicion ha sido comprobada
-
+var barcoSeleccionado = -1;
+document.getElementById("btnJugar").disabled = true;
+document.getElementById("btnRotar").disabled = true;
 function prepararCanvas(){
 	var cv = document.getElementById("posicionarBarcos");
 	var cv2 = document.getElementById("arrastrar");
 	dibujarDivisiones("posicionarBarcos");
-	//dibujarDivisiones("arrastrar");
-	//barcosParaArrastrar("arrastrar");
-	escribirLabels()
+	escribirLabels();
 	var i = 1;
 	/*
 	for(i = 1; i<11; i++){
@@ -92,6 +93,8 @@ function prepararCanvas(){
 	}
 
 
+
+
 	function prepararDnD(){
 		//selecciono los hijos
 		var ps = document.querySelectorAll('#arrastrar>img');
@@ -101,6 +104,7 @@ function prepararCanvas(){
 			ps[i].setAttribute('draggable', 'true');
 			ps[i].ondragstart = function(e){
 				e.dataTransfer.setData('text', e.target.id);
+				barco = document.getElementById(e.target.id);
 			};
 		}
 
@@ -108,12 +112,38 @@ function prepararCanvas(){
 		var destino = document.getElementById("posicionarBarcos");
 		
 		destino.ondragover = function(e){
+			/*
+			var ctx = cv.getContext("2d");
+			console.log("Moviendome");
+			posicionoBarcoEnX = 0;
+			posicionoBarcoEnY = 0;
+			posicionoBarcoEnX = e.offsetX;
+			posicionoBarcoEnY = e.offsetY;
+			var truncadoX = Math.trunc(posicionoBarcoEnX/28);
+			var truncadoY = Math.trunc(posicionoBarcoEnY/28);				
+			var colocoEnX = 28*truncadoX;
+			var colocoEnY = 28*truncadoY;
+
+			ctx.beginPath();
+			ctx.stokeStyle = "green";
+			ctx.rect(colocoEnX,colocoEnY,barco.width,28);
+			ctx.stroke();
+
+
+			setTimeout(function(){ 
+				dibujarDivisiones("posicionarBarcos");
+				escribirLabels();
+			}, 400);
+
+			*/
+
 			e.preventDefault();
 		}
 		
 
 		//aqui los meto dentro del canvas
 		destino.ondrop = function(e){
+
 			posicionoBarcoEnX = 0;
 			posicionoBarcoEnY = 0;
 			//console.log("(1)El puntero está en " + (posicionoBarcoEnX) + " " + (posicionoBarcoEnY));
@@ -156,25 +186,51 @@ function prepararCanvas(){
 									var colocoEnX = 28*truncadoX;
 									var colocoEnY = 28*truncadoY;
 									ctx.drawImage(img, colocoEnX, colocoEnY, barco.width, barco.height);
+
 									if(barco.width == 28){
-										gameBoard[truncadoX][truncadoY] = 1;
+
+										var str = barco.id.slice(5, 7);
+
+										gameBoard[truncadoX][truncadoY] = str;
+
+										str = parseInt(str)-1;
+										barcosPuestos[str] = true;
 									}else if(barco.width == 56){
-										gameBoard[truncadoX][truncadoY] = 1;
-										gameBoard[truncadoX+1][truncadoY] = 1;
+
+										var str = barco.id.slice(5, 7);
+
+										gameBoard[truncadoX][truncadoY] = str;
+										gameBoard[truncadoX+1][truncadoY] = str;	
+
+										str = parseInt(str)-1;
+										barcosPuestos[str] = true;									
 										//console.log("Valor dela matriz " + gameBoard[truncadoX][truncadoY]);
 										//console.log("Valor dela matriz " + gameBoard[truncadoX+1][truncadoY]);
 									}else if(barco.width == 84){
-										gameBoard[truncadoX][truncadoY] = 1;
-										gameBoard[truncadoX+1][truncadoY] = 1;
-										gameBoard[truncadoX+2][truncadoY] = 1;
+										var str = barco.id.slice(5, 7);
+
+										gameBoard[truncadoX][truncadoY] = str;
+										gameBoard[truncadoX+1][truncadoY] = str;
+										gameBoard[truncadoX+2][truncadoY] = str;
+
+										str = parseInt(str)-1;
+										barcosPuestos[str] = true;
+
 									}else{
-										gameBoard[truncadoX][truncadoY] = 1;
-										gameBoard[truncadoX+1][truncadoY] = 1;
-										gameBoard[truncadoX+2][truncadoY] = 1;
-										gameBoard[truncadoX+3][truncadoY] = 1;
+										var str = barco.id.slice(5, 7);
+
+										gameBoard[truncadoX][truncadoY] = str;
+										gameBoard[truncadoX+1][truncadoY] = str;
+										gameBoard[truncadoX+2][truncadoY] = str;
+										gameBoard[truncadoX+3][truncadoY] = str;
+
+										str = parseInt(str)-1;
+										barcosPuestos[str] = true;
+
 									}
 									
 									//console.log("Valor dela matriz " + gameBoard[truncadoX][truncadoY]);
+									comprobarBarcos();
 									truncadoX = 0;
 									truncadoY = 0;
 									posicionoBarcoEnX = 0;
@@ -202,8 +258,10 @@ function prepararCanvas(){
 
 			}
 
+
+
 		}
-		
+					
 	
 
 	}
@@ -221,7 +279,7 @@ function prepararCanvas(){
 
 
 
-
+		var todasCasillasVacias = true;
 
 		if(objBarco.width == 56 ){
 			//barco de dos casillas
@@ -232,12 +290,26 @@ function prepararCanvas(){
 				//alert("no lo pongoooooooooooo");
 				return false;
 			}else{
-				if(gameBoard[trunX+1][trunY] == 1){
+				if(gameBoard[trunX+1][trunY] != 0 ){
 					//la posicion de la derecha esta ocupada
 					return false;
 				}else{
 					//lo puedo poner
-					return true;
+					for(var i = -1; i<3; i++){
+						for(var j = -1; j<2; j++){
+							if(trunX+i <=10 ){
+								if(gameBoard[trunX+i][trunY+j]){
+									todasCasillasVacias=false;
+								}
+							}
+							//console.log("estoy en:" + (trunX+i) + " " + (trunY+j));
+						}
+					}
+					if(todasCasillasVacias){
+						return true;	
+					}else{
+						return false;
+					}
 				}
 			}
 		}else if(objBarco.width == 84){
@@ -246,17 +318,54 @@ function prepararCanvas(){
 			}else if((trunX+1) == gameBoard.length && (trunX+2) > gameBoard.length){
 				return false;
 			}else{
-				if(gameBoard[trunX+1][trunY] == 1 || gameBoard[trunX+2][trunY] == 1){
+				if(gameBoard[trunX+1][trunY] != 0 || gameBoard[trunX+2][trunY] != 0){
 					//la posicion de la derecha y la siguiente estan ocuipadas
 					return false;
 				}else{
-					return true;	
+					//comprobacion horizontal
+					for(var i = -1; i<4; i++){
+						for(var j = -1; j<2; j++){
+							if(trunX+i <=10 ){
+								if(gameBoard[trunX+i][trunY+j]){
+									todasCasillasVacias=false;
+								}
+							}
+							//console.log("estoy en:" + (trunX+i) + " " + (trunY+j));
+						}
+					}
+					if(todasCasillasVacias){
+						return true;	
+					}else{
+						return false;
+					}
+
+
+
+					
 				}
 				
 			}
 		
 		}else if(objBarco.width == 28){
-			return true;
+			//compruebo que a su alrededor haya agua
+			console.log("que pasas");
+			for(var i=-1; i<2;i++){
+				for(var j=-1; j<2; j++){
+					if( trunY+j<=10 && trunX+i <=10 ){
+						if(gameBoard[trunX + i][trunY + j] != 0){
+							todasCasillasVacias = false;
+						}
+					}
+
+					console.log("estoy en:" + (trunX+i) + " " + (trunY+j));
+				}
+			}
+			if(todasCasillasVacias){
+				return true;
+			}else{
+				return false;
+			}
+			
 		}else if(objBarco.width == 112){
 			if((trunX+3) == gameBoard.length){
 				//lo coloco en la tercera casilla por la derecha
@@ -269,18 +378,27 @@ function prepararCanvas(){
 				return false;
 			}
 			else{
-				if(gameBoard[trunX+1][trunY] == 1 || gameBoard[trunX+2][trunY] == 1 || gameBoard[trunX+3][trunY] == 1){
+				if(gameBoard[trunX+1][trunY] != 0 || gameBoard[trunX+2][trunY] != 0 || gameBoard[trunX+3][trunY] != 0){
 					return false;
 				}else{
-					return true;
+					for(var i = -1; i<5; i++){
+						for(var j = -1; j<2; j++){
+							if(trunX+i <=10 ){
+								if(gameBoard[trunX+i][trunY+j]){
+									todasCasillasVacias=false;
+								}
+							}
+							//console.log("estoy en:" + (trunX+i) + " " + (trunY+j));
+						}
+					}
+					if(todasCasillasVacias){
+						return true;	
+					}else{
+						return false;
+					}
 				}
 			}
-
-			
 		}
-
-
-
 
 		else{
 			//alert("iiiii");
@@ -288,4 +406,212 @@ function prepararCanvas(){
 
 	
 	}
+
+
+	function comprobarBarcos(){
+
+
+		if(barcosPuestos[0] && barcosPuestos[1] && barcosPuestos[2] && barcosPuestos[3] && barcosPuestos[4] && 
+			barcosPuestos[5] && barcosPuestos[6] && barcosPuestos[7] && barcosPuestos[8] && barcosPuestos[9]){
+			document.getElementById("btnJugar").disabled = false;
+		}
+
+	}
+
+
+
+/*
+	document.addEventListener('click', function(e) {
+    var id=e.srcElement;
+    var ps = document.querySelectorAll('canvas>img');
+    console.log(ps[0]);
+	}, false);
+
+*/
+
+	function colocarBarco(barcoParam){
+		//para colocar el barco seleccionandolo previamente
+
+			cv.onclick = function(e){
+				console.log("golaaa");
+				if(barcoSeleccionado != -1){
+					posicionoBarcoEnX = e.offsetX;
+					posicionoBarcoEnY = e.offsetY;
+					var truncadoX = Math.trunc(posicionoBarcoEnX/28);
+					var truncadoY = Math.trunc(posicionoBarcoEnY/28);				
+
+					//alert(posicionoBarcoEnX+" "+posicionoBarcoEnY);
+					//comprobarCasillas(barcoParam, colocoEnX, colocoEnY);
+					var puesto = false;
+					if(!puesto){
+						//lo muestro por pantalla
+						var ctx = cv.getContext('2d');
+						var img = new Image();
+						img.onload = function(){
+
+
+
+
+							var truncadoX = Math.trunc(posicionoBarcoEnX/28);
+							var truncadoY = Math.trunc(posicionoBarcoEnY/28);
+							//console.log("Posiciono el barco en " + Math.trunc(posicionoBarcoEnX/28) + " " + Math.trunc(posicionoBarcoEnY/28));
+							if(truncadoX != 0 && truncadoY != 0){
+								if(gameBoard[truncadoX][truncadoY] == 0){
+									var puedoPonerBarco = comprobarCasillas(barco, truncadoX, truncadoY);
+
+									if(puedoPonerBarco){
+										comprobado = false;
+										e.target.appendChild(barco);
+
+										var colocoEnX = 28*truncadoX;
+										var colocoEnY = 28*truncadoY;
+										ctx.drawImage(img, colocoEnX, colocoEnY, barco.width, barco.height);
+										console.log("he puesto un barco");
+										barcoSeleccionado = -1;
+										if(barco.width == 28){
+											var str = barco.id.slice(5, 7);
+
+											gameBoard[truncadoX][truncadoY] = str;
+
+											str = parseInt(str)-1;
+											barcosPuestos[str] = true;
+										}else if(barco.width == 56){
+
+											var str = barco.id.slice(5, 7);
+
+											gameBoard[truncadoX][truncadoY] = str;
+											gameBoard[truncadoX+1][truncadoY] = str;			
+
+											str = parseInt(str)-1;
+											barcosPuestos[str] = true;							
+											//console.log("Valor dela matriz " + gameBoard[truncadoX][truncadoY]);
+											//console.log("Valor dela matriz " + gameBoard[truncadoX+1][truncadoY]);
+										}else if(barco.width == 84){
+											var str = barco.id.slice(5, 7);
+
+											gameBoard[truncadoX][truncadoY] = str;
+											gameBoard[truncadoX+1][truncadoY] = str;
+											gameBoard[truncadoX+2][truncadoY] = str;
+
+											str = parseInt(str)-1;
+											barcosPuestos[str] = true;
+										}else{
+
+											var str = barco.id.slice(5, 7);
+
+											gameBoard[truncadoX][truncadoY] = str;
+											gameBoard[truncadoX+1][truncadoY] = str;
+											gameBoard[truncadoX+2][truncadoY] = str;
+											gameBoard[truncadoX+3][truncadoY] = str;
+
+											str = parseInt(str)-1;
+											barcosPuestos[str] = true;
+										}
+										
+										//console.log("Valor dela matriz " + gameBoard[truncadoX][truncadoY]);
+										comprobarBarcos();
+										barcoSeleccionado = -1;
+										truncadoX = 0;
+										truncadoY = 0;
+										posicionoBarcoEnX = 0;
+										posicionoBarcoEnY = 0;
+										puesto = true;
+									}
+									else{
+										puesto = true;
+										console.log("paro la ejecucion2");
+										//alert("Ha devuelto false");
+									}
+								}else{
+									//alert("no lo puedo poner");
+									puesto = true;
+
+								}
+							}else{
+								puesto = true;
+							}
+						};
+						img.src = barco.src;
+					}
+				}
+			}
+	}
+
+	cv.onmousedown = function(e){
+		//funcion para seleccionar barcos
+		if(parseInt(barco.id.slice(5,7)) == barcoSeleccionado){
+			colocarBarco(barco);
+		}
+
+		setTimeout(function(){ 
+			console.log("Tengo seleccionado" + barcoSeleccionado);
+			if(barcoSeleccionado == -1){
+				console.log("Down");
+				posicionoBarcoEnX = e.offsetX;
+				posicionoBarcoEnY = e.offsetY;
+				
+				var truncadoX = Math.trunc(posicionoBarcoEnX/28);
+				var truncadoY = Math.trunc(posicionoBarcoEnY/28);	
+
+				if(gameBoard[truncadoX][truncadoY] != 0){
+					barcoSeleccionado = gameBoard[truncadoX][truncadoY];
+					console.log(barcoSeleccionado);
+					document.getElementById("btnRotar").disabled = false;
+					barco = document.getElementById("barco"+barcoSeleccionado);
+					console.log(barco.isMap);
+					//barco.style.border = 
+					barco.style.border = "thick solid #0000FF";
+					console.log(barco);
+					console.log("------");
+					barcoSeleccionado=-1;
+				}
+
+			}else{
+				posicionoBarcoEnX = e.offsetX;
+				posicionoBarcoEnY = e.offsetY;
+				
+				var truncadoX = Math.trunc(posicionoBarcoEnX/28);
+				var truncadoY = Math.trunc(posicionoBarcoEnY/28);	
+				if(gameBoard[truncadoX][truncadoY] == 0 && barcoSeleccionado != -1){
+					barcoSeleccionado = -1;
+				}else{
+					barcoSeleccionado = gameBoard[truncadoX][truncadoY];
+				}
+				
+			}
+		}, 300);
+		console.log(barcoSeleccionado);
+		
+	};
+
+
+
+
+
+	//ultima parte del codigo
+	var ps = document.querySelectorAll('#arrastrar>img');
+
+	//los recorro y des pongo el atributo draggable
+	for(var i=0; i<ps.length; i++){
+		ps[i].setAttribute('draggable', 'true');
+		ps[i].onclick = function(e){
+			for(var j=1; j<11; j++){
+				//para borrar los bordes de los barcos
+				barco = document.getElementById("barco"+j);
+				barco.style.border = "none";
+			}
+
+			barcoSeleccionado = parseInt(e.srcElement.id.slice(5,7))
+			barco = document.getElementById(e.srcElement.id);
+			barco.style.border = "solid";
+
+			console.log("he seleccionado un barcop" + barcoSeleccionado);
+			//colocarBarco(barco);
+		};
+	}
+
+
+
 }
+
+
