@@ -1,4 +1,4 @@
-window.onload = prepararCanvas();
+window.onload = prepararCanvas(false, false);
 var posicionoBarcoEnX = 0; //para saber la posicion en X donde suelto el barco
 var posicionoBarcoEnY = 0; //para saber la posicion en Y donde suelto el barco
 var barco; //aqui almaceno la varaible del barco 
@@ -23,9 +23,13 @@ var barcoSeleccionado = -1;
 document.getElementById("btnJugar").disabled = true;
 document.getElementById("btnRotar").disabled = true;
 var puedoPonerBarco; //para saber si puedo poner un barco en una casilla
+var posicionSeleccionado=[-100,-100];
 
 
-function prepararCanvas(){
+
+
+
+function prepararCanvas(roto, jugar){
 	var cv = document.getElementById("posicionarBarcos");
 	var cv2 = document.getElementById("arrastrar");
 
@@ -136,7 +140,7 @@ function prepararCanvas(){
 	function prepararDnD(){
 		//selecciono los hijos
 		var ps = document.querySelectorAll('#arrastrar>img');
-
+//console.log("es aqui donde me esto moviendo?");
 		//los recorro y des pongo el atributo draggable
 		for(var i=0; i<ps.length; i++){
 			ps[i].setAttribute('draggable', 'true');
@@ -308,7 +312,7 @@ function prepararCanvas(){
 									}
 									
 									//console.log("Valor dela matriz " + gameBoard[truncadoX][truncadoY]);
-									comprobarBarcos();
+									comprobarBarcos(e);
 									truncadoX = 0;
 									truncadoY = 0;
 									posicionoBarcoEnX = 0;
@@ -484,13 +488,16 @@ function prepararCanvas(){
 	}
 
 
-	function comprobarBarcos(){
+	function comprobarBarcos(e){
+console.log("Hay tanto hijos "+e.target.childNodes.length);
 
-
-		if(barcosPuestos[0] && barcosPuestos[1] && barcosPuestos[2] && barcosPuestos[3] && barcosPuestos[4] && 
-			barcosPuestos[5] && barcosPuestos[6] && barcosPuestos[7] && barcosPuestos[8] && barcosPuestos[9]){
+		//if(barcosPuestos[10] && barcosPuestos[1] && barcosPuestos[2] && barcosPuestos[3] && barcosPuestos[4] && 
+		//	barcosPuestos[5] && barcosPuestos[6] && barcosPuestos[7] && barcosPuestos[8] && barcosPuestos[9]){
+		if(e.target.childNodes.length > 13){
+			console.log(e.target.childNodes.length+"jugarrrrrrr");
 			document.getElementById("btnJugar").disabled = false;
 		}
+		//}
 
 	}
 
@@ -543,6 +550,8 @@ function prepararCanvas(){
 										ctx.drawImage(img, colocoEnX, colocoEnY, barco.width, barco.height);
 										//console.log("he puesto un barco");
 										barcoSeleccionado = -1;
+										document.getElementById("btnRotar").disabled = true;
+
 										if(barco.width == 28){
 											var str = barco.id.slice(5, 7);
 
@@ -584,8 +593,10 @@ function prepararCanvas(){
 										}
 										
 										//console.log("Valor dela matriz " + gameBoard[truncadoX][truncadoY]);
-										comprobarBarcos();
+										comprobarBarcos(e);
 										barcoSeleccionado = -1;
+										document.getElementById("btnRotar").disabled = true;
+
 										truncadoX = 0;
 										truncadoY = 0;
 										posicionoBarcoEnX = 0;
@@ -611,13 +622,13 @@ function prepararCanvas(){
 				}
 			//}
 	}
-
+/*
 	cv.onmousedown = function(e){
 		var ctx = cv.getContext("2d");
 		if(parseInt(barco.id.slice(5,7)) == barcoSeleccionado){
 
 				
-			/*posicionoBarcoEnX = e.offsetX;
+			posicionoBarcoEnX = e.offsetX;
 			posicionoBarcoEnY = e.offsetY;
 			var truncadoX = Math.trunc(posicionoBarcoEnX/28);
 			var truncadoY = Math.trunc(posicionoBarcoEnY/28);	
@@ -643,18 +654,20 @@ function prepararCanvas(){
 				ctx.drawImage(img, truncadoX*28, truncadoY*28, barco.width, barco.height);
 			};
 			img.src = rectangulo.src;
-*/
+
 			
 				colocarBarco(e);
 			
-
+				barcoSeleccionado = -1;
 		}
 
 
 
 
 
-	}
+
+
+	}*/
 
 	/*
 	cv.onmousedown = function(e){
@@ -728,47 +741,149 @@ function prepararCanvas(){
 	};
 	*/
 	cv.onmousemove = function(e){
+		//console.log("me estoy moviendo?");
+		if(barcoSeleccionado != -1){
+			if(parseInt(barco.id.slice(5,7)) == barcoSeleccionado){
+				var ctx = cv.getContext("2d");
+				posicionoBarcoEnX = e.offsetX;
+				posicionoBarcoEnY = e.offsetY;
+				var truncadoX = Math.trunc(posicionoBarcoEnX/28);
+				var truncadoY = Math.trunc(posicionoBarcoEnY/28);	
+				//console.log("aaaa"+truncadoX+" "+truncadoY);
+				puedoPonerBarco = comprobarCasillas(barco, truncadoX, truncadoY);
+				
+				if(puedoPonerBarco){
+					//verde
+					var rectangulo = document.getElementById("ok28");
+				}else{
+					//rojo
+					var rectangulo = document.getElementById("cancelar28");
 
+				}
+				rectangulo.setAttribute('puesto', barco.id);			
+				var lista = document.querySelectorAll('#posicionarBarcos>img');
+				//console.log(lista.length);
+				rectangulo.style.display = "initial";
+				
+				cv.appendChild(rectangulo);
+				
+				var img = new Image();
+				img.src = rectangulo.src;
+				img.onload = function(){
+					ctx.drawImage(img, truncadoX*28, truncadoY*28, barco.width, barco.height);
+				};
 
-		if(parseInt(barco.id.slice(5,7)) == barcoSeleccionado){
-			var ctx = cv.getContext("2d");
+				if(barcosPuestos[barcoSeleccionado]){
+					var seleccion = document.getElementById("seleccionado28");
+					seleccion.style.display = "initial";
+					cv.appendChild(seleccion);
+					var img2 = new Image();
+					img2.src = seleccion.src;
+					img2.onload = function(){
+						ctx.drawImage(img2, posicionSeleccionado[0]*28, posicionSeleccionado[1]*28, barco.width, barco.height);
+					};
+					document.getElementById("btnRotar").disabled = false;
+				}
+				dibujarDivisiones("posicionarBarcos");
+				escribirLabels();
+				dibujarBarcos();
+
+			}
+			else{
+				console.log("me muevoooo");
+			}
+		}
+	};
+
+	cv.onclick = function(e){
+		//console.log(e.target.childNodes);
+
+		//console.log(e.target.childNodes);
+		var ctx = cv.getContext("2d");
+		if(barcoSeleccionado != -1){
+
+			if(parseInt(barco.id.slice(5,7)) == barcoSeleccionado){
+
+				//console.log("hi"+barcosPuestos[barcoSeleccionado]);
+				if(barcosPuestos[barcoSeleccionado]){
+					
+					//console.log("esta puesto");
+					for(var i=1 ; i<11; i++){
+						for(var j=1; j< 11; j++){
+							if(gameBoard[i][j] == barcoSeleccionado){
+								gameBoard[i][j] = 0;
+							}
+						}
+					}
+					/*
+					for(var i=0; i<e.target.childNodes.length; i++){
+						console.log("aaaaa"+e.target.childNodes[i].id);
+					}*/
+					//e.target.removeChild(e.target.childNodes[]);  
+					dibujarDivisiones("posicionarBarcos");
+					escribirLabels();
+					dibujarBarcos();
+					colocarBarco(e);
+				}else{
+					//console.log("adios");
+					colocarBarco(e);
+					barcosPuestos[barcoSeleccionado] = true;
+					console.log(barcoSeleccionado+" esta a "+barcosPuestos[barcoSeleccionado]);
+				}
+				barcoSeleccionado = -1;
+				document.getElementById("btnRotar").disabled = true;
+
+			}
+		}else{
+			console.log("joder");
+			
 			posicionoBarcoEnX = e.offsetX;
 			posicionoBarcoEnY = e.offsetY;
 			var truncadoX = Math.trunc(posicionoBarcoEnX/28);
 			var truncadoY = Math.trunc(posicionoBarcoEnY/28);	
-			console.log("aaaa"+truncadoX+" "+truncadoY);
-			puedoPonerBarco = comprobarCasillas(barco, truncadoX, truncadoY);
+			if(gameBoard[truncadoX][truncadoY] != 0){
+				barcoSeleccionado = gameBoard[truncadoX][truncadoY];
+				posicionSeleccionado[0] = truncadoX;
+				posicionSeleccionado[1] = truncadoY;
 
-			if(puedoPonerBarco){
-				//verde
-				var rectangulo = document.getElementById("ok28");
-			}else{
-				//rojo
-				var rectangulo = document.getElementById("cancelar28");
-
+				
+				console.log("acabod e clickarle");
 			}
-			rectangulo.setAttribute('puesto', barco.id);			
-			var lista = document.querySelectorAll('#posicionarBarcos>img');
-			//console.log(lista.length);
-			rectangulo.style.display = "initial";
+			console.log(barcoSeleccionado);
+			document.getElementById("btnRotar").disabled = true;
 
-			cv.appendChild(rectangulo);
-			var img = new Image();
-			img.onload = function(){
-				ctx.drawImage(img, truncadoX*28, truncadoY*28, barco.width, barco.height);
-			};
-			img.src = rectangulo.src;
-			dibujarDivisiones("posicionarBarcos");
-			escribirLabels();
-			dibujarBarcos();
 
 		}
+
+
+		
 
 	};
 
 
+	if(roto){
+		rotar();
+	}
+	if(jugar){
+		jugar();
+	}
 
-
+	if(barcoSeleccionado != -1){
+		var ctx = cv.getContext("2d");
+		var barco = document.getElementById("barco"+barcoSeleccionado);
+		var seleccion = document.getElementById("seleccionado28");
+		seleccion.style.display = "initial";
+		cv.appendChild(seleccion);
+		
+		var img2 = new Image();
+		img2.src = seleccion.src;
+		setTimeout(function(){ 
+			img2.onload = function(){
+				console.log(barco.width);
+				ctx.drawImage(img2, posicionSeleccionado[0]*28, posicionSeleccionado[1]*28, barco.width, 28);
+			};
+		}, 30);
+	}
 
 
 
@@ -794,8 +909,32 @@ function prepararCanvas(){
 		};
 	}
 
+	function rotar(){
+
+
+		dibujarDivisiones("posicionarBarcos");
+		escribirLabels();
+		dibujarBarcos();
+		console.log("cojo");
+		for(var i=1; i<11; i++){
+			for(var j=1; j<11; j++){
+				console.log("hola"+barcoSeleccionado);
+				if(gameBoard[i][j] == barcoSeleccionado){
+					console.log("estoy rotando el barco: " + i + ", " + j );
+				}
+			}
+		}
+
+	}
+
+
+	function jugar(){
+		console.log("adasdssa");
+	}
 
 
 }
+
+
 
 

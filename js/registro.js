@@ -26,18 +26,16 @@ function crearObjAjax(){
 
 function registrarse(frm){
 	var fd = new FormData();
-	alert("oderrrr");
+	//alert("oderrrr");
 		fd = new FormData(frm);
 		var l = document.getElementById('usu').value;
 		var n = document.getElementById('nombre').value;
 		var e = document.getElementById('email').value;
 		var p = document.getElementById('pwd').value;
-	
 	var xmlhttp = crearObjAjax();
 	var url="rest/usuario/";
-
 	xmlhttp.onload = function(){
-		alert(xmlhttp	.readyState+" "+xmlhttp.status);
+		
 		if(xmlhttp.readyState == 4){
 			if(xmlhttp.status == 200 ){
 				//var usuario = validarUsuario(document.getElementById("usu").value);
