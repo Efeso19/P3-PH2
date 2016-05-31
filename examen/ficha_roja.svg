@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="104" height="104">
+	<style type="text/css">
+		.circuloRojo{ 
+			fill:#a00; 
+			margin: 0;
+			padding: 0;
+		}
+
+	</style>
+
+	<circle class="circuloRojo" cx="20" cy="20" r="20"/>
+</svg>

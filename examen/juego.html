@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>TITULO</title>
+	<script type="text/javascript" src="javascript.js"></script>
+	<link rel="stylesheet" type="text/css" href="estilo.css">
+	
+</head>
+<body onload="comprobarUsuarios(2); iniciarJuego();">
+
+	<!-- CABECERA -->
+	<header>
+		<h1><a href="index.html">Título</a></h1>
+		<h2>Programación Hipermedia II</h2>
+		<h2>Examen 5 de junio de 2015</h2>
+	</header>
+
+	<!-- PARTE PRINCIPAL -->
+	<main>
+
+
+		<canvas id="rejilla" width="280" height="240">
+			Tu navegador no soporta canvas.
+		</canvas>
+		<button onclick="iniciarJuego()">Nueva partida</button>
+		<button onclick="finalizarPartida()">Finalizar partida</button>
+
+		<section id="seccion2">
+
+			<h3>Fichas disponibles</h3>
+
+			<article id="fichas1">
+
+				<h4></h4>
+			
+			</article>	
+
+			<article id="fichas2">
+
+				<h4></h4>
+			
+			</article>		
+
+		</section>
+		
+
+	</main>
+
+
+	<!-- PIE DE PAGINA -->
+	<footer>
+		<hr>
+		<ul>
+			<li>Nombre</li>
+			<li>DNI</li>
+		</ul>
+	</footer>
+
+
+</body>
+</html>

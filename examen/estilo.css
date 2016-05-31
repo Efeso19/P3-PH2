@@ -1,0 +1,268 @@
+/*GENERAL*/
+*{
+  margin: 0;
+  list-style-type: none;
+  font-family: 'Verdana', 'Arial', sans-serif;
+  
+}
+
+#newButton{
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color: #000000;
+  background: #FFFFFF;
+  padding: 8px 15px 8px 15px;
+  box-shadow: none;
+  border: none;
+}
+
+#newButton:hover {
+  background: #484848;
+  color: white;
+}
+
+.caja{
+  background-color: #060606;
+  color: white;
+  opacity: 0.9;
+  position: fixed;
+  top: 20%;
+  left: 24%;
+  width: 50%;
+  height: 60%;
+  line-height: 1.5em;
+  text-align: center;
+}
+
+#mostrarMensaje2{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.titulo{
+  margin-top: 18%;
+  font-size: 3em;
+}
+
+.mensaje{
+  font-size: 2em;
+}
+
+header{
+  color: white;
+  background: rgba(0, 0, 0, 0.6) none repeat scroll 0% 0%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 7%;
+  text-align: center;
+  line-height: 30px;
+  padding: 20px;
+
+}
+
+footer{
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #484848;
+  margin-top: 6%;
+  height: 7%;
+  margin-bottom: 2%;
+  text-align: center;
+}
+
+footer hr{
+  margin-bottom: 2%;
+}
+
+hr{
+  margin-right: 6%;
+  margin-left: 6%;
+}
+
+footer li {
+  display: inline;
+}
+
+footer li:last-of-type{
+  border-left: 1px solid #484848;
+  margin-left: 1%;
+  padding-left: 2%;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+}
+
+button, input[type="submit"], input[type="button"]{
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.6) none repeat scroll 0% 0%;
+  padding: 8px 15px 8px 15px;
+  box-shadow: none;
+  border: none;
+  margin-top: 3%;
+  
+}
+
+button:hover, input[type="submit"]:hover, input[type="button"]:hover{
+  background: #484848;
+}
+
+
+h3, h4{
+  color: #484848;
+  font-weight: lighter;
+}
+
+h1, h2{
+  color: white;
+  font-weight: lighter;
+}
+
+main{
+  margin: auto;
+}
+
+
+
+/******************************************/
+/*LOGIN*/
+#logueado, #logueado2{
+  display: none;
+}
+
+#divform, #divform2{
+  border: 1px solid #484848;
+  width: 250px;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 4%;
+  line-height: 25px;
+}
+
+#divform h3, #divform2 h3{
+  margin-bottom: 3%;
+}
+
+#divform hr, #divform2 hr{
+  margin-bottom: 5%;
+}
+/******************************************/
+
+/******************************************/
+/*TABLA*/
+table {
+    border-collapse: collapse;
+    text-align: center;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+table, th, td {
+  border: 1px solid black;
+  padding: 1%;
+  
+}
+
+td{
+  padding: 1%;
+}
+
+th{
+  color: #484848;
+}
+
+tr:nth-child(even){
+  background-color: #484848;
+  color: white;
+}
+
+tr:nth-child(odd){
+  background-color: white;
+  color: black;
+}
+/******************************************/
+
+
+/*TAMAÑOS RELATIVOS A QUERYS*/
+/* PEQUEÑOS: dispositivos maximo 480 px de ancho*/ 
+/* -------------------------------------*/
+
+@media screen and (max-width: 480px){
+
+  header{
+    height: 12%;
+  }
+
+  header h2{
+    font-size: 0.8em;
+  }
+
+  main{
+    margin: 3%;
+    margin-top: 150px;
+  }
+
+}
+
+/* -------------------------------------*/
+
+/* MEDIANOS: dispositivos minimo 481 px  y maximo 999 px de ancho*/ 
+/* -------------------------------------*/
+@media screen and (min-width: 481px) and (max-width:999px) {
+
+  header h2{
+    font-size: 0.95em;
+    display: inline;
+  }
+
+  header h2:last-of-type{
+    border-left: 1px solid white;
+    margin-left: 1%;
+    padding-left: 2%;
+  }
+
+  main{
+    margin: 3%;
+    margin-top: 120px;
+  }
+
+}
+/* -------------------------------------*/
+
+/* GRANDES: pantallas PC dispositivos mínimo 1050 px de ancho*/ 
+/* -------------------------------------*/  
+@media screen and (min-width: 1000px){
+
+  header h2{
+    font-size: 0.95em;
+    display: inline;
+  }
+
+  header h2:last-of-type{
+    border-left: 1px solid white;
+    margin-left: 1%;
+    padding-left: 2%;
+  }
+
+  main{
+    margin: 3%;
+    margin-top: 120px;
+
+  }
+
+}
+/* -------------------------------------*/
+

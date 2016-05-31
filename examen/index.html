@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title>TITULO</title>
+	<script type="text/javascript" src="javascript.js"></script>
+	<link rel="stylesheet" type="text/css" href="estilo.css">
+	
+</head>
+<body>
+
+	<!-- CABECERA -->
+	<header>
+		<h1><a href="index.html">Juego del 4 en raya online</a></h1>
+		<h2>Programación Hipermedia II</h2>
+		<h2>Examen 5 de junio de 2015, 9:00h</h2>
+	</header>
+
+	<!-- PARTE PRINCIPAL -->
+	<main>
+
+		<h3>Parte principal</h3>
+
+		<!-- LOGIN -->
+		<div id="divform">
+			<h3>Jugador 1</h3>
+			
+			<form id="formLogin" method ="POST">
+				<p>Necesita hacer login para jugar</p>
+
+				<label for="jugador1">Nombre </label> <br>
+				<input type="text" id="jugador1" required autofocus ><br>
+
+				<input type='button' value='Aceptar' onclick="loguear1();">
+			</form>
+
+			<div id="logueado">
+				<p></p>
+				
+			</div>
+		</div>
+		<div id="divform2">
+			<h3>Jugador 2</h3>
+			<form id="formLogin2" method ="POST">
+				
+				<p>Necesita hacer login para jugar</p>
+
+				<label for="jugador2">Nombre </label> <br>
+				<input type="text" id="jugador2" required><br>
+
+				<input type='button' value='Aceptar' onclick="loguear2();">
+			</form>
+			<div id="logueado2">
+				<p></p>
+				
+			</div>
+		</div>
+
+			
+		
+
+	</main>
+
+
+	<!-- PIE DE PAGINA -->
+	<footer>
+		<hr>
+		<ul>
+			<li>Nombre</li>
+			<li>DNI</li>
+			<li>Grupo 02 - lunes, 9:00h</li>
+		</ul>
+	</footer>
+
+
+</body>
+</html>
